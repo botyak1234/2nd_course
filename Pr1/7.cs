@@ -5,4 +5,4 @@ Console.WriteLine("Количество купюр = {0}\n", b);
 double c = a*b;
 Console.WriteLine("Сумма денег = {0:N}", c);
 
-Console.WriteLine("Для продолжения нажмите любую клавишу...");
+Console.WriteLine("Press any key to continue");
