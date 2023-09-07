@@ -5,4 +5,4 @@ Console.WriteLine("Введите процент по вкладу = {0}\n", b);
 double c = a*b/100;
 Console.WriteLine("Через год начисляется = {0:N}р", c);
 
-Console.WriteLine("Для продолжения нажмите любую клавишу...");
+Console.WriteLine("Press any key to continue");
