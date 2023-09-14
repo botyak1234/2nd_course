@@ -10,11 +10,13 @@ class chisla
         int b = int.Parse(Console.ReadLine());
         for (int i = a; i < b; i++)
         {
-            if (i % 3 == 0)
+            if (i % 2 == 0 && i % 3 == 0)
             {
-                Console.WriteLine(i);
+                a = i;
+                break;
             }
         }
+        for (int i = a; i < b; i += 6) Console.Write("{0} ", i);
         Console.WriteLine("Press any key to continue");
     }
 }
