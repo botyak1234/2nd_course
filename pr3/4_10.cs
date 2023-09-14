@@ -10,7 +10,7 @@ class chisla
         int b = int.Parse(Console.ReadLine());
         for (int i = a; i < b; i++)
         {
-            if (i % 2 == 0 && i % 3 == 0)
+            if (i % 6 == 0)
             {
                 a = i;
                 break;
