@@ -1,6 +1,6 @@
 
 using System;
-using System.ComponentModel.Design;
+
 
 class chisla
 {
