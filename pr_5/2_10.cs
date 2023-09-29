@@ -50,7 +50,7 @@ class chisla
             for (double y = x + 1; y <= b; y++)
             {
                 double z = (int)Math.Sqrt(stepen(x, 2) + stepen(y, 2));
-                if (z >= a && z <= b && stepen(z, 2) == stepen(x, 2) + stepen(y, 2)) Console.WriteLine("{0} {1} {2}", x, y, z);
+                if (z >= a && z <= b && z!= x && z!= y && stepen(z, 2) == stepen(x, 2) + stepen(y, 2)) Console.WriteLine("{0} {1} {2}", x, y, z);
             }
         }
 
@@ -66,4 +66,3 @@ class chisla
 }
 
 
-    
