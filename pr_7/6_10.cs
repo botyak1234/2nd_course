@@ -16,49 +16,56 @@ class chisla
         {
             for (int j = 0; j < n; j++)
             {
-                a[i][j] = r.Next(-5, 5);
+                //a[i][j] = r.Next(-5, 5);
+                a[i][j] = double.Parse(Console.ReadLine());
             }
         }
     }
 
 
-   
-    static void Output(double[][]a, int n, int m)
+
+    static void Output(double[][] a, int n, int m)
     {
-        for (int i = 0; i < n; i++)
+        if (n != 0)
         {
-            for (int j = 0; j < m; j++)
+            for (int i = 0; i < n; i++)
             {
-                Console.Write("{0, 2}", a[i][j]);
+                for (int j = 0; j < m; j++)
+                {
+                    Console.Write("{0, 2}", a[i][j]);
+                }
+                Console.WriteLine('\n');
             }
-            Console.WriteLine('\n');
         }
+        else Console.WriteLine("удалён весь массив");
     }
 
 
 
-    static void delete(double[][] a, ref int n, double x, double y)
+    static void deletestr(double[][] a, ref int n, double x, double y)
     {
-        for (int i = 0; i < n; i++)
-        {
-            bool flag = true;
-            for (int j = 0; j < n; j++)
+            for (int i = 0; i < n; i++)
             {
-                if (a[i][j] < x || a[i][j] > y)
+                bool flag = true;
+                for (int j = 0; j < n; j++)
                 {
-                    flag = false;
-                    break;
+                    if (a[i][j] < x || a[i][j] > y)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag)
+                {
+                    for (int k = i; k < n - 1; k++)
+                    {
+                        a[k] = a[k + 1];
+                    }
+                    --i;
+                    --n;
+                    a[n] = null;
                 }
             }
-            if (flag)
-            {
-                for(int k = i; k < n-1; k++)
-                {
-                    a[k] = a[k + 1];
-                }
-                --n;
-            }
-        }
     }
 
 
@@ -71,11 +78,10 @@ class chisla
         chisla.Output(a, n, m);
         double x = double.Parse(Console.ReadLine());
         double y = double.Parse(Console.ReadLine());
-        chisla.delete(a, ref n, x, y);
+        chisla.deletestr(a, ref n, x, y);
         chisla.Output(a, n, m);
     }
 
 }
 
 
-   
