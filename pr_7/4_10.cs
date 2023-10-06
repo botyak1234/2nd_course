@@ -19,17 +19,25 @@ class chisla
     }
 
 
-    static void Output(double []b, bool flag)
+    static void Output(double[] b, bool flag)
     {
         if (flag)
         {
             foreach (double element in b)
             {
-                Console.WriteLine("{0} ", element);
+                Console.Write("{0} ", element);
             }
         }
         else
         {
+            foreach (double element in b)
+            {
+                if (element > 0)
+                {
+                    Console.Write("{0} ", element);
+                    Console.Write(' ');
+                }
+            }
             Console.WriteLine("В некотором столбце не найдено положительное число");
         }
     }
@@ -47,7 +55,7 @@ class chisla
 
 
 
-    static bool find_plus(double[,] a, double[]b, int n)
+    static bool find_plus(double[,] a, double[] b, int n)
     {
         bool flag_all = true;
         for (int i = 0; i < n; i++)
@@ -65,7 +73,6 @@ class chisla
             if (!flag)
             {
                 flag_all = false;
-                break;
             }
         }
         return flag_all;
@@ -88,4 +95,3 @@ class chisla
 }
 
 
-    
