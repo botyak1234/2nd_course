@@ -12,15 +12,12 @@ class chisla
     {
         int count = 0;
         string s = Console.ReadLine();
-        List<string> strings_ = new List<string>(s.Split());
+        char[] chars = {' ','\n','\t','.', ',', '!',':','"', '\'','\\','/'};
+        List<string>strings_ = new List<string>(s.Split(chars, StringSplitOptions.RemoveEmptyEntries));
+        Console.WriteLine(strings_.Count());
         foreach (string slovo in strings_)
         {
-            bool flag = true;
-            foreach (char symbol in slovo)
-            {
-                if (Char.IsLower(symbol)) flag = false;
-            }
-            if (flag) ++count;
+            if (slovo == slovo.ToUpper()) count++;
         }
         Console.WriteLine(count);
     }
