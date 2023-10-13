@@ -13,11 +13,11 @@ class chisla
     static void Main()
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        using (StreamReader file_f = new StreamReader("E:\\C++\\help\\help\\f.txt", Encoding.GetEncoding(1251)))
+        using (StreamReader file_f = new StreamReader("C:\\Users\\Пользователь\\source\\repos\\help\\help\\f.txt", Encoding.GetEncoding(1251)))
         {
-            using (StreamWriter file_h = new StreamWriter("E:\\C++\\help\\help\\h.txt"))
+            using (StreamWriter file_h = new StreamWriter("C:\\Users\\Пользователь\\source\\repos\\help\\help\\h.txt"))
             {
-                using (StreamWriter file_g = new StreamWriter("E:\\C++\\help\\help\\g.txt"))
+                using (StreamWriter file_g = new StreamWriter("C:\\Users\\Пользователь\\source\\repos\\help\\help\\g.txt"))
                 {
                     string sline;
                     while ((sline = file_f.ReadLine()) != null)
@@ -33,4 +33,3 @@ class chisla
         }
     }
 }
-
