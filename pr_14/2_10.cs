@@ -17,30 +17,37 @@ class chisla
         string fam, name, second_name;
         int group, course;
         public double time;
-    
+
         public Sgroup(string fam, string name, string second_name, int group, int course, double time)
         {
             this.name = name;
             this.fam = fam;
             this.second_name = second_name;
-            this.group = group; 
-            this.course = course; 
+            this.group = group;
+            this.course = course;
             this.time = time;
         }
         public int CompareTo(Sgroup obj)
         {
-            if (this.time < obj.time) return 1;
+            if (this.time < obj.time) return -1;
             else if (this.time == obj.time) return 0;
-            else return -1;
+            else return 1;
         }
         public void Show(StreamWriter fileout)
         {
-            fileout.Write("{0}, {1}, {2}, {3}, {4}, {5}", name, fam, second_name, group, course, time);
+            fileout.Write("{0} {1} {2} {3} {4} {5}", name, fam, second_name, group, course, time);
+            fileout.WriteLine();
+
+        }
+        public void Show()
+        {
+            Console.Write("{0} {1} {2} {3} {4} {5}", name, fam, second_name, group, course, time);
+            Console.WriteLine();
         }
     }
-    static public Sgroup[] Input(ref int n) //читаем данные из файла
+    static public Sgroup[] Input(ref int n) 
     {
-        using (StreamReader fileIn = new StreamReader("E:\\C++\\help\\help\\input.txt"))
+        using (StreamReader fileIn = new StreamReader("C:\\Users\\Пользователь\\source\\repos\\help\\help\\input.txt"))
         {
             n = int.Parse(fileIn.ReadLine());
             Sgroup[] ar = new Sgroup[n];
@@ -52,22 +59,42 @@ class chisla
             return ar;
         }
     }
+
+    static void Print(Sgroup[] array)
+    {
+        foreach (Sgroup student in array)
+        {
+            student.Show();
+        }
+    }
+
+
+
     static void Main()
     {
         int n = 0;
         Sgroup[] groupmates = Input(ref n);
         Array.Sort(groupmates);
         int count = 3;
-        using (StreamWriter fileout = new StreamWriter("E:\\C++\\help\\help\\output.txt"))
+        using (StreamWriter fileout = new StreamWriter("C:\\Users\\Пользователь\\source\\repos\\help\\help\\output.txt"))
         {
             groupmates[0].Show(fileout);
             for (int i = 1; i < n; i++)
             {
-                if (count == 0) break;
-                if (groupmates[i].time != groupmates[i - 1].time) count--;
+                if (count == 1)
+                {
+                    break;
+                }
+                else 
+                {
+                    if (groupmates[i].time != groupmates[i - 1].time)
+                    {
+                        count--;
+                    }
+                }
                 groupmates[i].Show(fileout);
             }
         }
-        
+        Console.WriteLine(count);
     }
 }
