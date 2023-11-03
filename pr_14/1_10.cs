@@ -11,7 +11,7 @@ class chisla
     public
     struct SPoint
     {
-        public double x, y, z; //поля структуры
+        public double x, y, z; 
         public SPoint(int x, int y, int z)
         {
             this.x = x;
@@ -27,23 +27,23 @@ class chisla
             return Math.Pow(this.x - obj.x, 2) + Math.Pow(this.y - obj.y, 2) + Math.Pow(this.z - obj.z, 2);
         }
     }
-    static public SPoint[] Input(ref int n, ref double r) 
+    static public SPoint[] Input(ref int n, ref double r)
     {
-        using (StreamReader fileIn = new StreamReader("E:\\C++\\help\\help\\input.txt")) 
+        using (StreamReader fileIn = new StreamReader("C:\\Users\\Пользователь\\source\\repos\\help\\help\\input1.txt"))
         {
             n = int.Parse(fileIn.ReadLine());
             Console.WriteLine(n);
             r = double.Parse(fileIn.ReadLine());
-            SPoint[] points = new SPoint[n]; 
+            SPoint[] points = new SPoint[n];
             for (int i = 0; i < n; i++)
             {
                 string[] text = fileIn.ReadLine().Split(' ');
-                points[i] = new SPoint(int.Parse(text[0]), int.Parse(text[1]), int.Parse(text[2])); 
+                points[i] = new SPoint(int.Parse(text[0]), int.Parse(text[1]), int.Parse(text[2]));
             }
-            return points; 
+            return points;
         }
     }
-    
+
     static void Main()
     {
         int n = 0;
@@ -70,11 +70,12 @@ class chisla
                 index = i;
             }
         }
-        Console.WriteLine(max_point);
-        using (StreamWriter fileout = new StreamWriter("E:\\C++\\help\\help\\output.txt"))
+        using (StreamWriter fileout = new StreamWriter("C:\\Users\\Пользователь\\source\\repos\\help\\help\\output1.txt"))
         {
             if (max_point == 0) fileout.WriteLine("there is no such point");
             else points[index].Show(fileout);
         }
+        Console.WriteLine(max_point);
     }
+    
 }
