@@ -5,13 +5,14 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
 
 class chisla
 {
     public
     struct SPoint
     {
-        public double x, y, z; 
+        public double x, y, z;
         public SPoint(int x, int y, int z)
         {
             this.x = x;
@@ -29,7 +30,7 @@ class chisla
     }
     static public SPoint[] Input(ref int n, ref double r)
     {
-        using (StreamReader fileIn = new StreamReader("C:\\Users\\Пользователь\\source\\repos\\help\\help\\input1.txt"))
+        using (StreamReader fileIn = new StreamReader("C:\\Users\\contest\\source\\repos\\ConsoleApp1\\ConsoleApp1\\input1.txt"))
         {
             n = int.Parse(fileIn.ReadLine());
             Console.WriteLine(n);
@@ -44,6 +45,10 @@ class chisla
         }
     }
 
+
+
+
+
     static void Main()
     {
         int n = 0;
@@ -52,6 +57,7 @@ class chisla
         int max_point = 0;
         int index = -1;
         SPoint[] points = Input(ref n, ref r);
+        List<SPoint> max_points = new List<SPoint>();         
         r *= r;
         for (int i = 0; i < n; i++)
         {
@@ -64,18 +70,24 @@ class chisla
                     if (points[i].Distance(points[j]) <= r) c++;
                 }
             }
+            if (c == max_point)
+            {
+                max_points.Add(points[i]);
+            }
             if (c > max_point)
             {
                 max_point = c;
                 index = i;
+                max_points.Clear();
+                max_points.Add(points[i]);
             }
         }
-        using (StreamWriter fileout = new StreamWriter("C:\\Users\\Пользователь\\source\\repos\\help\\help\\output1.txt"))
+        using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp1\\ConsoleApp1\\output1.txt"))
         {
             if (max_point == 0) fileout.WriteLine("there is no such point");
             else points[index].Show(fileout);
         }
         Console.WriteLine(max_point);
     }
-    
+
 }
