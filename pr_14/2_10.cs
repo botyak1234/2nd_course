@@ -29,7 +29,7 @@ class chisla
         }
         public int CompareTo(Sgroup obj)
         {
-            if (this.time < obj.time) return -1;
+            if (this.time > obj.time) return -1;
             else if (this.time == obj.time) return 0;
             else return 1;
         }
@@ -45,9 +45,9 @@ class chisla
             Console.WriteLine();
         }
     }
-    static public Sgroup[] Input(ref int n) 
+    static public Sgroup[] Input(ref int n)
     {
-        using (StreamReader fileIn = new StreamReader("C:\\Users\\Пользователь\\source\\repos\\help\\help\\input.txt"))
+        using (StreamReader fileIn = new StreamReader("C:\\Users\\contest\\source\\repos\\ConsoleApp1\\ConsoleApp1\\input.txt"))
         {
             n = int.Parse(fileIn.ReadLine());
             Sgroup[] ar = new Sgroup[n];
@@ -76,16 +76,20 @@ class chisla
         Sgroup[] groupmates = Input(ref n);
         Array.Sort(groupmates);
         int count = 3;
-        using (StreamWriter fileout = new StreamWriter("C:\\Users\\Пользователь\\source\\repos\\help\\help\\output.txt"))
+        using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp1\\ConsoleApp1\\output.txt"))
         {
             groupmates[0].Show(fileout);
             for (int i = 1; i < n; i++)
             {
                 if (count == 1)
                 {
-                    break;
+                    if (groupmates[i].time == groupmates[i - 1].time)
+                    {
+                        count++;
+                    }
+                    else break;
                 }
-                else 
+                else
                 {
                     if (groupmates[i].time != groupmates[i - 1].time)
                     {
@@ -95,6 +99,6 @@ class chisla
                 groupmates[i].Show(fileout);
             }
         }
-        Console.WriteLine(count);
+        chisla.Print(groupmates); 
     }
 }
