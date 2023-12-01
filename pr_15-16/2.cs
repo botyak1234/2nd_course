@@ -56,15 +56,19 @@ class Programm
         //var query = from member in stuffs
         //            group member by member.post;
         //using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp1\\ConsoleApp1\\output.txt"))
-        //    foreach (var items in query)
-        //    {
-        //        fileout.Write("{0}: ", items.Key);
-        //        foreach (var item in items)
-        //        {
-        //            fileout.Write("{0} ", item.surname);
-        //        }
-        //        fileout.WriteLine();
-        //    }
+       //{
+            //   foreach (var items in query)
+            //{
+            //    fileout.Write("{0}: ", items.Key);
+            //    fileout.WriteLine();
+            //    foreach (var item in items)
+            //    {
+            //        fileout.Write("{0} {1} {2}", item.surname, item.name, item.middle_name);
+            //        fileout.WriteLine();
+            //    }
+            //    fileout.WriteLine();
+            //}
+        //}
         int n = 0;
         Stuff[] stuffs = Input(ref n);
         var query = stuffs.GroupBy(members => members.post);
