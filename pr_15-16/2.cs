@@ -33,7 +33,7 @@ class Programm
 
     static public Stuff[] Input(ref int n)
     {
-        using (StreamReader fileIn = new StreamReader("C:\\Users\\Danil\\source\\repos\\ConsoleApp1\\ConsoleApp1\\input1.txt"))
+        using (StreamReader fileIn = new StreamReader("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\input1.txt"))
         {
             n = int.Parse(fileIn.ReadLine());
             Stuff[] stuffs = new Stuff[n];
@@ -51,28 +51,12 @@ class Programm
 
     static void Main()
     {
-        //int n = 0;
-        //Stuff[] stuffs = Input(ref n);
-        //var query = from member in stuffs
-        //            group member by member.post;
-        //using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp1\\ConsoleApp1\\output.txt"))
-       //{
-            //   foreach (var items in query)
-            //{
-            //    fileout.Write("{0}: ", items.Key);
-            //    fileout.WriteLine();
-            //    foreach (var item in items)
-            //    {
-            //        fileout.Write("{0} {1} {2}", item.surname, item.name, item.middle_name);
-            //        fileout.WriteLine();
-            //    }
-            //    fileout.WriteLine();
-            //}
-        //}
         int n = 0;
         Stuff[] stuffs = Input(ref n);
-        var query = stuffs.GroupBy(members => members.post);
-        using (StreamWriter fileout = new StreamWriter("C:\\Users\\Danil\\source\\repos\\ConsoleApp1\\ConsoleApp1\\output1.txt"))
+        var query = from member in stuffs
+                    group member by member.post;
+        using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output1.txt", false))
+        {
             foreach (var items in query)
             {
                 fileout.Write("{0}: ", items.Key);
@@ -84,5 +68,23 @@ class Programm
                 }
                 fileout.WriteLine();
             }
+        }
+        //int n = 0;
+        //Stuff[] stuffs = Input(ref n);
+        //var query = stuffs.GroupBy(members => members.post);
+        //using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output1.txt", false))
+        //{
+        //    foreach (var items in query)
+        //    {
+        //        fileout.Write("{0}: ", items.Key);
+        //        fileout.WriteLine();
+        //        foreach (var item in items)
+        //        {
+        //            fileout.Write("{0} {1} {2}", item.surname, item.name, item.middle_name);
+        //            fileout.WriteLine();
+        //        }
+        //        fileout.WriteLine();
+        //    }
+        //}
     }
 }
