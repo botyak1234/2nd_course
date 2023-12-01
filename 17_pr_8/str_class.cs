@@ -53,6 +53,7 @@ namespace ConsoleApp1
 
         void print_max_copy()
         {
+            List<List<char>> row_array = new List<List<char>>();
             List<char> symb_row = new List<char>();
             int c = 0;
             int max_c = -1;
@@ -68,6 +69,7 @@ namespace ConsoleApp1
                 {
                     if (c > max_c)
                     {
+                        row_array.Add(symb_row);
                         symb_row.Clear();
                         symb_row.Add(symb);
                         max_c = c;
@@ -84,7 +86,7 @@ namespace ConsoleApp1
 
         int TotalCharacters
         {
-            get 
+            get
             {
                 int c = 0;
                 foreach (char symb in this.line) c++;
