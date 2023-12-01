@@ -51,27 +51,11 @@ class Programm
 
     static void Main()
     {
-        int n = 0;
-        Stuff[] stuffs = Input(ref n);
-        var query = from member in stuffs
-                    group member by member.post;
-        using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output1.txt", false))
-        {
-            foreach (var items in query)
-            {
-                fileout.Write("{0}: ", items.Key);
-                fileout.WriteLine();
-                foreach (var item in items)
-                {
-                    fileout.Write("{0} {1} {2}", item.surname, item.name, item.middle_name);
-                    fileout.WriteLine();
-                }
-                fileout.WriteLine();
-            }
-        }
         //int n = 0;
         //Stuff[] stuffs = Input(ref n);
-        //var query = stuffs.GroupBy(members => members.post);
+        //var query = from member in stuffs
+        //            group member by member.post into g
+        //            orderby g.Key select g;
         //using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output1.txt", false))
         //{
         //    foreach (var items in query)
@@ -86,5 +70,22 @@ class Programm
         //        fileout.WriteLine();
         //    }
         //}
+        int n = 0;
+        Stuff[] stuffs = Input(ref n);
+        var query = stuffs.OrderBy(members => members.post).GroupBy(members => members.post);
+        using (StreamWriter fileout = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output1.txt", false))
+        {
+            foreach (var items in query)
+            {
+                fileout.Write("{0}: ", items.Key);
+                fileout.WriteLine();
+                foreach (var item in items)
+                {
+                    fileout.Write("{0} {1} {2}", item.surname, item.name, item.middle_name);
+                    fileout.WriteLine();
+                }
+                fileout.WriteLine();
+            }
+        }
     }
 }
