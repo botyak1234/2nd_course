@@ -39,17 +39,19 @@ class Programm
         char[] chars = { ' ', '\n', '\t', '.', ',', '!', ':', '"', '\'', '\\', '/' };
         using (StreamReader fileIn = new StreamReader("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\input.txt"))
         {
-            s = fileIn.ReadLine();
-            numbers = new List<string>(s.Split(chars, StringSplitOptions.RemoveEmptyEntries));
-        }
-        var NewNumbers = numbers.Where(n => n.Length == 3).Select(n => int.Parse(n) - 100);
-
-
-        using (StreamWriter fileOut = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output.txt"))
-        {
-            foreach (var x in NewNumbers)
+            using (StreamWriter fileOut = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output.txt"))
             {
-                fileOut.Write("{0} ", x);
+                while((s = fileIn.ReadLine()) != null)              
+                {
+                    numbers = new List<string>(s.Split(chars, StringSplitOptions.RemoveEmptyEntries));
+                    var NewNumbers = numbers.Where(n => n.Length == 3).Select(n => int.Parse(n) - 100);
+                    {
+                        foreach (var x in NewNumbers)
+                        {
+                            fileOut.Write("{0} ", x);
+                        }
+                    }
+                }
             }
         }
     }
