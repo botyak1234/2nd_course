@@ -15,6 +15,8 @@ namespace ConsoleApp1
         {
             this.line = line;
         }
+
+
         public
         int count_digit()
         {
@@ -75,12 +77,14 @@ namespace ConsoleApp1
                         max_c = c;
                         c = 0;
                     }
+                    else
+                    {
+                        c = 0;
+                    }
                 }
             }
-            foreach (char symb_in_list in symb_row)
-            {
-                Console.WriteLine(symb_in_list);
-            }
+            List<char> lastItem = row_array.Last();
+            foreach(char element in lastItem) Console.WriteLine(element);
         }
 
 
@@ -92,6 +96,59 @@ namespace ConsoleApp1
                 foreach (char symb in this.line) c++;
                 return c;
             }
+        }
+
+        public char this[int i]
+        {
+            get 
+            {
+                if (i < TotalCharacters)
+                {
+                    return line[i];
+                }
+                else
+                {
+                    Console.WriteLine("Недопустимый индекс");
+                    return '!';
+                }
+            }
+        }
+
+        public static bool operator !(str myString)
+        {
+            if (myString.TotalCharacters != 0) return true;
+            else return false;
+        }
+
+        public static bool IsPalindrome(string str)
+        {
+            string reversed = new string(str.Reverse().ToArray());
+            return string.Equals(str, reversed, StringComparison.OrdinalIgnoreCase);
+        }
+
+
+        public static bool operator true(str myString)
+        {
+            return IsPalindrome(myString.line);
+        }
+
+        public static bool operator false(str myString)
+        {
+            return !IsPalindrome(myString.line);
+        }
+
+        public static bool operator &(str obj1, str obj2)
+        {
+            if (obj1.Field.Length != obj2.Field.Length)
+                return false;
+
+            for (int i = 0; i < obj1.Field.Length; i++)
+            {
+                if (char.ToLower(obj1.Field[i]) != char.ToLower(obj2.Field[i]))
+                    return false;
+            }
+
+            return true;
         }
 
     }
