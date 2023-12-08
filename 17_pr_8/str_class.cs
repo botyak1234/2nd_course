@@ -1,24 +1,28 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.Design;
+using System.Net.NetworkInformation;
 using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 
-namespace ConsoleApp1
+namespace ConsoleApp2
 {
     class str
     {
-        private
+        private 
         string line;
-        str(string line)
+        public str(string line)
         {
             this.line = line;
         }
 
+        public void Show(StreamWriter fileout)
+        {
+            fileout.Write(line);
+        }
 
-        public
-        int count_digit()
+        public int count_digit()
         {
             int c = 0;
             foreach (char s in this.line)
@@ -28,7 +32,7 @@ namespace ConsoleApp1
             return c;
         }
 
-        void print_single()
+       public void print_single(StreamWriter fileout)
         {
             Dictionary<char, int> charCount = new Dictionary<char, int>();
             foreach (char s in this.line)
@@ -47,48 +51,39 @@ namespace ConsoleApp1
             {
                 if (charCount[s] == 1)
                 {
-                    Console.WriteLine(s);
+                    fileout.Write("{0} ", s);
                 }
             }
+            fileout.WriteLine();
         }
 
 
-        void print_max_copy()
+        public void print_max_copy(StreamWriter fileout)
         {
-            List<List<char>> row_array = new List<List<char>>();
-            List<char> symb_row = new List<char>();
-            int c = 0;
-            int max_c = -1;
-            int index = 0;
-            foreach (char symb in this.line)
+            StringBuilder max_sequence = new StringBuilder("");
+            StringBuilder current_sequence = new StringBuilder("");
+            for (int i = 0; i < line.Length; i++)
             {
-                if (symb_row.Contains(symb))
+                if (i == 0 || line[i] == line[i - 1])
                 {
-                    symb_row.Add(symb);
-                    c++;
+                    current_sequence.Append(line[i]);
                 }
-                else
+                else 
                 {
-                    if (c > max_c)
+                    if (current_sequence.Length > max_sequence.Length)
                     {
-                        row_array.Add(symb_row);
-                        symb_row.Clear();
-                        symb_row.Add(symb);
-                        max_c = c;
-                        c = 0;
+                        max_sequence.Clear();
+                        max_sequence.Append(current_sequence);                        
                     }
-                    else
-                    {
-                        c = 0;
-                    }
+                    current_sequence.Clear();
+                    current_sequence.Append(line[i]);
                 }
             }
-            List<char> lastItem = row_array.Last();
-            foreach(char element in lastItem) Console.WriteLine(element);
+            fileout.WriteLine(max_sequence);
         }
 
 
-        int TotalCharacters
+        public int TotalCharacters
         {
             get
             {
@@ -100,7 +95,7 @@ namespace ConsoleApp1
 
         public char this[int i]
         {
-            get 
+            get
             {
                 if (i < TotalCharacters)
                 {
@@ -108,8 +103,7 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    Console.WriteLine("Недопустимый индекс");
-                    return '!';
+                    throw new Exception("Неправильный индекс");
                 }
             }
         }
@@ -120,10 +114,12 @@ namespace ConsoleApp1
             else return false;
         }
 
-        public static bool IsPalindrome(string str)
+        public static bool IsPalindrome(string stroka)
         {
-            string reversed = new string(str.Reverse().ToArray());
-            return string.Equals(str, reversed, StringComparison.OrdinalIgnoreCase);
+            char[] charArray = stroka.ToCharArray();
+            Array.Reverse(charArray);
+            string reversed = new string(charArray);
+            return string.Equals(stroka, reversed, StringComparison.OrdinalIgnoreCase);
         }
 
 
@@ -139,17 +135,27 @@ namespace ConsoleApp1
 
         public static bool operator &(str obj1, str obj2)
         {
-            if (obj1.Field.Length != obj2.Field.Length)
+            if (obj1.TotalCharacters != obj2.TotalCharacters)
                 return false;
 
-            for (int i = 0; i < obj1.Field.Length; i++)
+            for (int i = 0; i < obj1.TotalCharacters; i++)
             {
-                if (char.ToLower(obj1.Field[i]) != char.ToLower(obj2.Field[i]))
-                    return false;
+                if (char.ToLower(obj1[i]) != char.ToLower(obj2[i]))
+                return false;
             }
 
             return true;
         }
 
+        public static implicit operator str(string s)
+        {
+            return new str(s);
+        }
+
+        public static implicit operator string (str s)
+        {
+            string temp = new string(s.line);
+            return temp;
+        }
     }
-}
+}   
