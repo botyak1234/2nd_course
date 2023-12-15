@@ -42,7 +42,9 @@ namespace ConsoleApp2
                     }
                     fileOut.WriteLine(line & line2);
                     string stoka = line;
+                    fileOut.WriteLine(stoka);
                     str line3 = s;
+                    fileOut.WriteLine(line3);
                 }
             }
         }
