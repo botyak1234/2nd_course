@@ -17,6 +17,15 @@ namespace ConsoleApp2
             this.line = line;
         }
 
+        public str(str new_obj)
+        {
+            this.line = String.Copy(new_obj.line);
+        }
+
+        public str()
+        {
+            this.line = " ";
+        }
         public void Show(StreamWriter fileout)
         {
             fileout.Write(line);
