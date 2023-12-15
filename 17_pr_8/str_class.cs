@@ -29,6 +29,7 @@ namespace ConsoleApp2
         public void Show(StreamWriter fileout)
         {
             fileout.Write(line);
+            fileout.WriteLine();
         }
 
         public int count_digit()
@@ -77,12 +78,12 @@ namespace ConsoleApp2
                 {
                     current_sequence.Append(line[i]);
                 }
-                else 
+                else
                 {
                     if (current_sequence.Length > max_sequence.Length)
                     {
                         max_sequence.Clear();
-                        max_sequence.Append(current_sequence);                        
+                        max_sequence.Append(current_sequence);
                     }
                     current_sequence.Clear();
                     current_sequence.Append(line[i]);
@@ -105,11 +106,11 @@ namespace ConsoleApp2
         public char this[int i]
         {
             get
-            {
+            {   
                 if (i < TotalCharacters)
                 {
                     return line[i];
-                }
+                }   
                 else
                 {
                     throw new Exception("Неправильный индекс");
@@ -126,8 +127,10 @@ namespace ConsoleApp2
         public static bool IsPalindrome(string stroka)
         {
             char[] charArray = stroka.ToCharArray();
+            Console.WriteLine(stroka);
             Array.Reverse(charArray);
             string reversed = new string(charArray);
+            Console.WriteLine(reversed);
             return string.Equals(stroka, reversed, StringComparison.OrdinalIgnoreCase);
         }
 
@@ -162,6 +165,7 @@ namespace ConsoleApp2
         }
 
         public static implicit operator string (str s)
+
         {
             string temp = new string(s.line);
             return temp;
