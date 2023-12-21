@@ -10,7 +10,7 @@ namespace ConsoleApp2
 {
     class str
     {
-        private 
+        private
         string line;
         public str(string line)
         {
@@ -42,7 +42,7 @@ namespace ConsoleApp2
             return c;
         }
 
-       public void print_single(StreamWriter fileout)
+        public void print_single(StreamWriter fileout)
         {
             Dictionary<char, int> charCount = new Dictionary<char, int>();
             foreach (char s in this.line)
@@ -70,26 +70,36 @@ namespace ConsoleApp2
 
         public void print_max_copy(StreamWriter fileout)
         {
-            StringBuilder max_sequence = new StringBuilder("");
-            StringBuilder current_sequence = new StringBuilder("");
-            for (int i = 0; i < line.Length; i++)
+            if (string.IsNullOrEmpty(line))
             {
-                if (i == 0 || line[i] == line[i - 1])
+                fileout.WriteLine(string.Empty);
+            }
+            char currentChar = line[0];
+            char maxChar = line[0];
+            int currentCount = 1;
+            int maxCount = 1;
+            for (int i = 1; i < line.Length; i++)
+            {
+                if (line[i] == currentChar)
                 {
-                    current_sequence.Append(line[i]);
+                    currentCount++;
                 }
-                else
+                else 
                 {
-                    if (current_sequence.Length > max_sequence.Length)
+                    if (currentCount > maxCount)
                     {
-                        max_sequence.Clear();
-                        max_sequence.Append(current_sequence);
+                        maxCount = currentCount;
+                        maxChar = currentChar;
                     }
-                    current_sequence.Clear();
-                    current_sequence.Append(line[i]);
+                    currentChar = line[i];
+                    currentCount = 1;
                 }
             }
-            fileout.WriteLine(max_sequence);
+            for (int i = 0; i < maxCount; i++)
+            {
+                fileout.Write(maxChar);
+            }
+            fileout.WriteLine();
         }
 
 
@@ -106,11 +116,11 @@ namespace ConsoleApp2
         public char this[int i]
         {
             get
-            {   
+            {
                 if (i < TotalCharacters)
                 {
                     return line[i];
-                }   
+                }
                 else
                 {
                     throw new Exception("Неправильный индекс");
@@ -153,7 +163,7 @@ namespace ConsoleApp2
             for (int i = 0; i < obj1.TotalCharacters; i++)
             {
                 if (char.ToLower(obj1[i]) != char.ToLower(obj2[i]))
-                return false;
+                    return false;
             }
 
             return true;
@@ -164,11 +174,11 @@ namespace ConsoleApp2
             return new str(s);
         }
 
-        public static implicit operator string (str s)
+        public static implicit operator string(str s)
 
         {
             string temp = new string(s.line);
             return temp;
         }
     }
-}   
+}
