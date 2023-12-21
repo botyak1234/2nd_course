@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using System.Diagnostics;
+using static System.Net.WebRequestMethods;
 
 class Programm
 {
@@ -43,63 +44,66 @@ class Programm
         }
         return -1;
     }
+    static int karp(string ishodnik, string podstroka)
+    {
+        const long P = 37;
+        Stopwatch timer = new Stopwatch();
+        timer.Start();
+        int length_podstroka = podstroka.Length;
+        int length_ishodnik = ishodnik.Length;
+        long[] pwp = new long[length_ishodnik];
+        pwp[0] = 1;
+        for (int i = 1; i < length_ishodnik; i++)
+        {
+            pwp[i] = pwp[i - 1] * P;
+        }
+        long[] h = new long[length_ishodnik];
+
+        for (int i = 0; i < length_ishodnik; i++)
+        {
+            h[i] = (ishodnik[i] - 'a' + 1) * pwp[i];
+            if (i > 0)
+                h[i] += h[i - 1];
+        }
+        long h_s = 0;
+        for (int i = 0; i < length_podstroka; i++)
+        {
+            h_s += (podstroka[i] - 'a' + 1) * pwp[i];
+        }
+        for (int i = 0; i + length_podstroka - 1 < length_ishodnik; i++)
+        {
+            long cur_h = h[i + length_podstroka - 1];
+            if (i > 0)
+            {
+                cur_h -= h[i - 1];
+            }
+            if (cur_h == h_s * pwp[i])
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
     static void Main()
     {
         using (StreamReader filein = new StreamReader("C:\\Users\\Danil\\source\\repos\\ConsoleApp1\\ConsoleApp1\\input.txt"))
         {
+            int index = 0;
             string podstroka = filein.ReadLine();
             string ishodnik = filein.ReadToEnd();
-            int index = 0;
-            const long P = 37;
             Stopwatch timer = new Stopwatch();
             timer.Start();
-            int length_podstroka = podstroka.Length;
-            int length_ishodnik = ishodnik.Length;
-            long[] pwp = new long[length_ishodnik];
-            pwp[0] = 1;
-            for (int i = 1; i < length_ishodnik; i++)
-            {
-                pwp[i] = pwp[i - 1] * P;
-            }
-            long[] h = new long[length_ishodnik];
-            
-            for (int i = 0; i < length_ishodnik; i++)
-            {
-                h[i] = (ishodnik[i] - 'a' + 1) * pwp[i]; 
-                if (i > 0)
-                    h[i] += h[i - 1];
-            }
-            long h_s = 0;
-            for (int i = 0; i < length_podstroka; i++)
-            {
-                h_s += (podstroka[i] - 'a' + 1) * pwp[i];
-            }
-            for (int i = 0; i + length_podstroka - 1 < length_ishodnik; i++)
-            {
-                long cur_h = h[i + length_podstroka - 1];
-                if (i > 0)
-                {
-                    cur_h -= h[i - 1];
-                }
-                if (cur_h == h_s * pwp[i])
-                {
-                    Console.WriteLine("{0} ", i);
-                    break;
-                }
-            }
-
-            
-            
+            index = karp(ishodnik, podstroka);
             timer.Stop();
+            Console.Write("{0} ", index);
             Console.WriteLine(timer.ElapsedTicks);
-            
-            
+
+
             timer.Start();
             index = IndexOf(ishodnik, podstroka, 0);
             timer.Stop();
-            Console.WriteLine(index);
+            Console.Write("{0} ", index);
             Console.WriteLine(timer.ElapsedTicks);
         }
     }
-       
 }
