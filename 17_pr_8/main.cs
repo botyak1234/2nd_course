@@ -19,9 +19,9 @@ namespace ConsoleApp2
 
         static void Main()
         {
-            using (StreamReader fileIn = new StreamReader("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\input17.txt"))
+            using (StreamReader fileIn = new StreamReader("C:\\Users\\Danil\\source\\repos\\ConsoleApp1\\ConsoleApp1\\input17.txt"))
             {
-                using (StreamWriter fileOut = new StreamWriter("C:\\Users\\contest\\source\\repos\\ConsoleApp2\\ConsoleApp2\\output17.txt"))
+                using (StreamWriter fileOut = new StreamWriter("C:\\Users\\Danil\\source\\repos\\ConsoleApp1\\ConsoleApp1\\output17.txt"))
                 {
                     string s = fileIn.ReadLine();
                     str line = new str(s);
@@ -41,10 +41,13 @@ namespace ConsoleApp2
                         fileOut.WriteLine(-1);
                     }
                     fileOut.WriteLine(line & line2);
-                    string stoka = line;
-                    fileOut.WriteLine(stoka);
-                    str line3 = s;
+
+
+                    string test = "help";
+                    str line3 = test;
+                    test = line;
                     fileOut.WriteLine(line3);
+                    fileOut.WriteLine(test);
                 }
             }
         }
