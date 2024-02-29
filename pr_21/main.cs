@@ -31,9 +31,10 @@ namespace heeelp
             min_ = help.FindMin();
             Console.WriteLine();
             Console.WriteLine(min_);
+            help.CountChildren();
         }
     }
 }
-//10 5 4 6 12 11 13
+
 
 
