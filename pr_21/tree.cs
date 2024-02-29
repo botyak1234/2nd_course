@@ -69,7 +69,18 @@ namespace heeelp
                 }
             }
 
-
+            public static int CountChildren(Node r)
+            {
+                if (r == null)
+                {
+                    return 0;
+                }
+                int leftChildren = CountChildren(r.left);
+                int rightChildren = CountChildren(r.right);
+                int total = leftChildren + rightChildren;
+                Console.WriteLine($"Узел{r.inf} имеет {total} потомков");
+                return total+1;
+            }
         }
 
         Node tree;
@@ -102,5 +113,9 @@ namespace heeelp
             Node.Preorder(tree);
         }
 
+        public int CountChildren()
+        {
+            return Node.CountChildren(tree);
+        }
     }
 }
