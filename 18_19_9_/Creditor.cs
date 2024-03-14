@@ -9,12 +9,12 @@ namespace ConsoleApp1
     [Serializable]
     internal class Creditor : Client
     {
-        
+
         public double CreditAmount { get; }
         public double Credit { get; }
         public double RemainingCredit { get; }
 
-       
+
         public Creditor(string lastName, DateTime startDate, double creditAmount, double credit, double remainingCredit) : base(lastName, startDate)
         {
             CreditAmount = creditAmount;
@@ -22,11 +22,13 @@ namespace ConsoleApp1
             RemainingCredit = remainingCredit;
         }
 
-      
-        public override void DisplayInfo(StreamWriter fileOut)
+
+   
+
+        public override string ToString()
         {
-            fileOut.WriteLine($"Creditor: {LastName}, Credit Amount: {CreditAmount}, Credit: {Credit}%, Remaining Credit: {RemainingCredit}");
+            return $"Creditor: {LastName}, Credit Amount: {CreditAmount}, Credit: {Credit}%, Remaining Credit: {RemainingCredit}";
         }
-        
+
     }
 }
