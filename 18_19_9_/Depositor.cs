@@ -9,24 +9,23 @@ namespace ConsoleApp1
     [Serializable]
     internal class Depositor : Client
     {
-        
+
         public double DepositAmount { get; }
         public double Deposit { get; }
 
-       
+
         public Depositor(string lastName, DateTime startDate, double depositAmount, double deposit) : base(lastName, startDate)
         {
             DepositAmount = depositAmount;
             Deposit = deposit;
         }
 
-        
-        public override void DisplayInfo(StreamWriter fileOut)
+
+        public override string ToString()
         {
-            fileOut.WriteLine($"Depositor: {LastName}, Deposit Amount: {DepositAmount}, Deposit Interest: {Deposit}%");
+            return $"Depositor: {LastName}, Deposit Amount: {DepositAmount}, Deposit Interest: {Deposit}%, time: {StartDate}";
         }
 
-        
-        
+
     }
 }
