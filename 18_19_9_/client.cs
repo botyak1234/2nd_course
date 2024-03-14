@@ -11,8 +11,8 @@ namespace ConsoleApp1
     [Serializable]
     internal abstract class Client : IComparable<Client>
     {
-        
-        public string LastName { get;  }
+
+        public string LastName { get; }
         public DateTime StartDate { get; }
 
         public Client(string lastName, DateTime startDate)
@@ -20,16 +20,13 @@ namespace ConsoleApp1
             LastName = lastName;
             StartDate = startDate;
         }
-
-
-        
-        public abstract void DisplayInfo(StreamWriter fileOut); 
+     
         public bool IsMatch(DateTime targetDate)
         {
-            return StartDate >= targetDate; 
+            return StartDate >= targetDate;
         }
 
-        
+
         public int CompareTo(Client other)
         {
             return StartDate.CompareTo(other.StartDate);
