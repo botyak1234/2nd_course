@@ -10,12 +10,12 @@ namespace ConsoleApp1
     [Serializable]
     internal class Organization : Client
     {
-       
+
         public string Name { get; }
         public string AccountNumber { get; }
         protected double AccountBalance { get; }
 
-        
+
         public Organization(string name, DateTime startDate, string accountNumber, double accountBalance) : base(name, startDate)
         {
             Name = name;
@@ -23,11 +23,14 @@ namespace ConsoleApp1
             AccountBalance = accountBalance;
         }
 
-        
-        public override void DisplayInfo(StreamWriter fileOut)
+
+       
+
+        public override string ToString()
         {
-            fileOut.WriteLine($"Organization: {Name}, Account Number: {AccountNumber}, Account Balance: {AccountBalance}");
+            return $"Organization: {Name}, Account Number: {AccountNumber}, Account Balance: {AccountBalance}";
         }
+
 
     }
 }
