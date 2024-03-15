@@ -7,21 +7,21 @@ using System.Xml.Linq;
 
 namespace heeelp
 {
-    public class BinaryTree 
+    public class BinaryTree
     {
-        
+
         private class Node
         {
-            public int inf; 
-            public Node left; 
-            public Node right; 
+            public int inf;
+            public Node left;
+            public Node right;
             public Node(int nodeInf)
             {
                 inf = nodeInf;
                 left = null;
                 right = null;
             }
-            
+
             public static void Add(ref Node r, int nodeInf)
             {
                 if (r == null)
@@ -43,20 +43,23 @@ namespace heeelp
 
             public static int FindMin(Node r)
             {
-                if (r == null)
+                int minValue;
+                if (r.left == null)
                 {
-                    return int.MaxValue; // Возвращаем максимальное значение, чтобы обработать случай отсутствия листьев.
+                    if (r.right == null)
+                    {
+                        minValue = r.inf;
+                    }
+                    else
+                    {
+                        minValue = FindMin(r.right);
+                    }
                 }
-
-                if (r.left == null && r.right == null)
+                else 
                 {
-                    return r.inf;
+                    minValue = FindMin(r.left);
                 }
-
-                int leftMin = FindMin(r.left);
-                int rightMin = FindMin(r.right);
-
-                return Math.Min(leftMin, rightMin);
+                return minValue;
             }
 
             public static void Preorder(Node r)
@@ -78,8 +81,8 @@ namespace heeelp
                 int leftChildren = CountChildren(r.left);
                 int rightChildren = CountChildren(r.right);
                 int total = leftChildren + rightChildren;
-                Console.WriteLine($"Узел{r.inf} имеет {total} потомков");
-                return total+1;
+                Console.WriteLine($"Узел {r.inf} имеет {total} потомков");
+                return total + 1;
             }
         }
 
@@ -89,15 +92,15 @@ namespace heeelp
             set { tree.inf = value; }
             get { return tree.inf; }
         }
-        public BinaryTree() 
+        public BinaryTree()
         {
             tree = null;
         }
-        private BinaryTree(Node r) 
+        private BinaryTree(Node r)
         {
             tree = r;
         }
-        public void Add(int nodeInf) 
+        public void Add(int nodeInf)
         {
             Node.Add(ref tree, nodeInf);
         }
