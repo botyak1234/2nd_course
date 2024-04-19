@@ -12,44 +12,112 @@ namespace heeelp
         static bool CheckUzelCount(Graph g)
         {
             int n = g.Size();
-            bool flag = true;
-            int count1 = 0;
-            int count2 = 0;
+            int countNode = 0;
+            int countOdd = 0;
             for (int i = 0; i < n; i++)
             {
                 for (int j = 0; j < n; j++)
                 {
-                    if (g[i, j] != 0) count1 ++;
-                    if (g[j, i] != 0) count2 ++;
+                    if (g[i, j] != 0) countNode++;
                 }
-                if (count1 != count2)
+                if (countNode % 2 != 0)
                 {
-                    flag = false;
-                    break;
+                    countOdd++;
                 }
-                count1 = 0;
-                count2 = 0;
+                countNode = 0;
             }
-            return flag;
+            if (countOdd > 2)
+            {
+                return false;
+            }
+            return true;
         }
 
-        static bool CheckFalse(bool[] array)
+        static bool CheckFalse(bool[] array, Graph g)
         {
             for (int i = 0; i < array.Length; i++)
             {
-                if (array[i] == true) return false;
+                if (array[i] == true)
+                {
+                    return false;
+                }
             }
             return true;
+        }
+
+        static bool CheckFalse(List<int> help, bool[] array, Graph g)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] == true)
+                {
+                    if (help.IndexOf(i) == -1)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+
+
+        static bool CheckSolo(List<int >array, Graph g)
+        {
+            int n = g.Size();
+            for (int i = 0; i < n; i++)
+            {
+                bool flag = true;
+                for (int j = 0; j < n; j++)
+                {
+                    if (g[i, j] == 1)
+                    { 
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag)
+                {
+                    array.Add(i);
+                }
+            }
+            if (array.Count != 0)
+            {
+                return true;
+            }
+            return false;
         }
 
 
         static bool IsStronglyConnected(Graph g)
         {
             int n = g.Size();
-            for(int i = 0; i < n; i++)
+
+            for (int i = 0; i < n; i++)
             {
                 g.Dfs(i);
-                if(!CheckFalse(g.NovList())) return false;
+                if (!CheckFalse(g.NovList(), g))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        static bool IsStronglyConnected(List<int> array, Graph g)
+        {
+            int n = g.Size();
+            for (int i = 0; i < n; i++)
+            {
+                if (array.IndexOf(i) == -1)
+                {
+                    g.Dfs(i);
+                    if (CheckFalse(array, g.NovList(), g))
+                    {
+                        return true;
+                    }
+                }
+                else continue;
             }
             return true;
         }
@@ -57,23 +125,45 @@ namespace heeelp
         static void Main()
         {
             int aUzel = int.Parse(Console.ReadLine());
-            Graph g = new Graph("C:\\Users\\Danil\\source\\repos\\heeelp\\heeelp\\graph.txt");
-            if (CheckUzelCount(g))
+            List<int> array = new List<int>();
+            Graph g = new Graph("C:\\Users\\contest\\source\\repos\\ConsoleApp5\\ConsoleApp5\\graph.txt");
+            if (CheckSolo(array, g))
             {
-                if (IsStronglyConnected(g))
+                if (CheckUzelCount(g))
                 {
-                    g.SearchG(aUzel);
+                    if (IsStronglyConnected(array, g))
+                    {
+                        g.SearchG(aUzel);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Пути не существует");
+                    }
                 }
                 else
                 {
                     Console.WriteLine("Пути не существует");
                 }
             }
-            else
+            else 
             {
-                Console.WriteLine("Пути не существует");
+                if (CheckUzelCount(g))
+                {
+                    if (IsStronglyConnected(g))
+                    {
+                        g.SearchG(aUzel);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Пути не существует");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Пути не существует");
+                }
             }
-            
+
         }
     }
 }
