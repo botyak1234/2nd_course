@@ -9,7 +9,7 @@ namespace heeelp
 {
     class Program
     {
-        static bool CheckUzelCount(Graph g)
+        static int CheckUzelCount(Graph g, int Uzel, List<int> array)
         {
             int n = g.Size();
             int countNode = 0;
@@ -28,9 +28,37 @@ namespace heeelp
             }
             if (countOdd > 2)
             {
-                return false;
+                return -1;
             }
-            return true;
+            if (countOdd == 1)
+            {
+                int countCheck = 0;
+                for (int i = 0; i < n; i++)
+                {
+                    if (g[Uzel, i] == 1) countCheck++; 
+                }
+                if (countCheck == 1)
+                {
+                    return 0;
+                }
+                return -1;
+            }
+            if (countOdd == 2)
+            {
+                int COUNT = 0;
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (g[i, j] != 0) COUNT++;
+                    }
+                    if (COUNT % 2 == 1) array.Add(i);
+                    COUNT = 0;
+                }
+                if (g[array[0], array[1]] == 1) return 1;
+                return 2;
+            }
+            return 1;
         }
 
         static bool CheckFalse(bool[] array, Graph g)
@@ -62,7 +90,7 @@ namespace heeelp
 
 
 
-        static bool CheckSolo(List<int >array, Graph g)
+        static bool CheckSolo(List<int> array, Graph g)
         {
             int n = g.Size();
             for (int i = 0; i < n; i++)
@@ -71,7 +99,7 @@ namespace heeelp
                 for (int j = 0; j < n; j++)
                 {
                     if (g[i, j] == 1)
-                    { 
+                    {
                         flag = false;
                         break;
                     }
@@ -89,7 +117,7 @@ namespace heeelp
         }
 
 
-        static bool IsStronglyConnected(Graph g)
+        static bool IsConnected(Graph g)
         {
             int n = g.Size();
 
@@ -104,7 +132,7 @@ namespace heeelp
             return true;
         }
 
-        static bool IsStronglyConnected(List<int> array, Graph g)
+        static bool IsConnected(List<int> array, Graph g)
         {
             int n = g.Size();
             for (int i = 0; i < n; i++)
@@ -125,45 +153,65 @@ namespace heeelp
         static void Main()
         {
             int aUzel = int.Parse(Console.ReadLine());
+            List<int> pair = new List<int>();
             List<int> array = new List<int>();
-            Graph g = new Graph("C:\\Users\\contest\\source\\repos\\ConsoleApp5\\ConsoleApp5\\graph.txt");
+            Graph g = new Graph("C:\\Users\\Danil\\source\\repos\\heeelp\\heeelp\\graph.txt");
             if (CheckSolo(array, g))
             {
-                if (CheckUzelCount(g))
+                if (CheckUzelCount(g, aUzel, pair) == -1)
                 {
-                    if (IsStronglyConnected(array, g))
+                    Console.WriteLine("!!!Пути не существует");
+                }
+                if (CheckUzelCount(g, aUzel, pair) == 0)
+                {
+                    if (IsConnected(array, g))
                     {
                         g.SearchG(aUzel);
                     }
-                    else
+                }
+                if (CheckUzelCount(g, aUzel, pair) == 1)
+                {
+                    if (IsConnected(array, g))
                     {
-                        Console.WriteLine("Пути не существует");
+                        g.SearchG(aUzel);
                     }
                 }
-                else
+                if (CheckUzelCount(g, aUzel, pair) == 2)
                 {
-                    Console.WriteLine("Пути не существует");
+                    if (IsConnected(array, g))
+                    {
+                        g.SearchG(aUzel, pair);
+                    }
                 }
             }
             else 
             {
-                if (CheckUzelCount(g))
+                if (CheckUzelCount(g, aUzel, pair) == -1)
                 {
-                    if (IsStronglyConnected(g))
+                    Console.WriteLine("!!!Пути не существует");
+                }
+                if (CheckUzelCount(g, aUzel, pair) == 0)
+                {
+                    if (IsConnected(g))
                     {
                         g.SearchG(aUzel);
                     }
-                    else
+                }
+                if (CheckUzelCount(g, aUzel, pair) == 1)
+                {
+                    if (IsConnected(g))
                     {
-                        Console.WriteLine("Пути не существует");
+                        g.SearchG(aUzel);
                     }
                 }
-                else
+                if (CheckUzelCount(g, aUzel, pair) == 2)
                 {
-                    Console.WriteLine("Пути не существует");
+                    if (IsConnected(g))
+                    {
+                        g.SearchG(aUzel, pair);
+                    }
                 }
             }
-
         }
     }
 }
