@@ -3,16 +3,15 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 using System.ComponentModel;
+using heeelp;
+using System.Drawing;
 namespace heeelp
 {
     class Program
-    {
-
-
+    { 
         static void Main()
         {
             string filein = "C:\\Users\\Danil\\source\\repos\\heeelp\\heeelp\\input.txt";
-            string fileout = "C:\\Users\\Danil\\source\\repos\\heeelp\\heeelp\\output.txt";
             BinaryTree help = new BinaryTree();
             using (StreamReader In = new StreamReader(filein))
             {
@@ -21,20 +20,36 @@ namespace heeelp
                 List<string> strings_ = new List<string>(s.Split(chars, StringSplitOptions.RemoveEmptyEntries));
                 foreach (string obj in strings_)
                 {
-                    help.Add(int.Parse(obj));
+                    help.add(int.Parse(obj));
                 }
             }
-
-            int min_ = 20;
-
-            help.Preorder();
-            min_ = help.FindMin();
-            Console.WriteLine();
-            Console.WriteLine(min_);
-            help.CountChildren();
+            bool Balanced = help.IsBalanced();
+            int addCount = int.Parse(Console.ReadLine());
+            int check;
+            for (int i = 0; i < addCount; i++)
+            {
+                int ADD;
+                check = help.IsEasyToBalance();
+                if (check == 0)
+                {
+                    help.add(0, Int32.MaxValue);
+                }
+                if (check == 1)
+                {
+                    BinaryTree ob = help.FindDisbalance(out ADD);
+                    ob.add(ADD);
+                    help.preorder();
+                }
+            }
+            if (help.IsBalanced())
+            {
+                Console.WriteLine("Возможно");
+                help.preorder();
+            }
+            else
+            {
+                Console.WriteLine("Невозможно");
+            }
         }
     }
 }
-
-
-
