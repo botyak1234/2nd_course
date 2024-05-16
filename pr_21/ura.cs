@@ -121,6 +121,7 @@ namespace heeelp
                 }
                 else
                 {
+                    r.height++;
                     add(ref r.left, MinValue, r.inf);
                 }
                 r.NewHeight();
@@ -281,14 +282,15 @@ namespace heeelp
                 bool flag = true;
             public static bool IsBalanced(Node t)
             {
-
                 if (t == null) return true;
                 if (Math.Abs(t.BalanceFactor) <= 1 && IsBalanced(t.left) && IsBalanced(t.rigth))
                 {
                     return true;
                 }
                 return false;
-                }
+            }
+            
+            
             public static int IsEasyToBalance(Node t)
             {
                 if (t == null) return 0;
@@ -297,27 +299,35 @@ namespace heeelp
                 else return -1;
             }
 
-            public static void FindDisbalance(Node r, out Node item, int MinValue, int MaxValue, out int AddKey)
+            public static int FindDisbalance(Node r, out Node item, int MinValue, int MaxValue, out int AddKey)
             {
-                if (r.left == null & r.rigth == null)
+                if (r.left == null || r.rigth == null)
                 {
                     item = r;
-                    AddKey = (MinValue + MaxValue)/2;
+                    AddKey = (MinValue + MaxValue) / 2;
                 }
                 else
                 {
-                    if (r.BalanceFactor <= -1)
+                    if (r.BalanceFactor > 1)
                     {
-                        FindDisbalance(r.rigth, out item, MinValue, r.inf, out AddKey);
-                        Console.WriteLine(r.BalanceFactor);
+                        Console.WriteLine(1);
+                        FindDisbalance(r.left, out item, MinValue, r.inf, out AddKey);
                     }
-                    if (r.BalanceFactor >= 1)
+                    if (r.BalanceFactor < -1)
                     {
-                        FindDisbalance(r.left, out item, r.inf, MaxValue, out AddKey);
+                        FindDisbalance(r.rigth, out item, r.inf, MaxValue, out AddKey);
+                        Console.WriteLine(2);
                     }
-                    else item = r;
-                    AddKey = (MinValue + MaxValue) / 2;
+                    else
+                    {
+                        if(r.left != null) FindDisbalance(r.left, out item, MinValue, r.inf, out AddKey);
+                        if(r.rigth != null) FindDisbalance(r.rigth, out item, r.inf, MaxValue, out AddKey);
+                        item = r;
+                        AddKey = (MinValue + MaxValue) / 2;
+                    }
                 }
+                Console.WriteLine(item.inf);
+                return 0;
             }
 
            
