@@ -113,19 +113,7 @@ namespace heeelp
                     }
                     Rotation(ref r);
                 }
-            public static void add(ref Node r, int MinValue, int MaxValue)
-            {
-                if (r == null)
-                {
-                    r = new Node((MinValue+MaxValue)/2);
-                }
-                else
-                {
-                    r.height++;
-                    add(ref r.left, MinValue, r.inf);
-                }
-                r.NewHeight();
-            }
+            
 
             public static void add(ref Node r, int nodeInf)
             {
@@ -147,18 +135,7 @@ namespace heeelp
                 r.NewHeight();
             }
 
-            public static void addonce(ref Node r, int nodeInf)
-            {
-                if (r == null)
-                {
-                    r = new Node(nodeInf);
-                }
-                else
-                {
-                    addonce(ref r.left, nodeInf);
-                }
-                r.NewHeight();
-            }
+            
 
 
 
@@ -291,43 +268,44 @@ namespace heeelp
             }
             
             
-            public static int IsEasyToBalance(Node t)
-            {
-                if (t == null) return 0;
-                if (t.BalanceFactor == 0 && IsEasyToBalance(t.rigth) == 0 && IsEasyToBalance(t.left) == 0) return 0;
-                if (Math.Abs(t.BalanceFactor) == 1 && IsEasyToBalance(t.rigth) != -1 && IsEasyToBalance(t.left) != -1) return 1;
-                else return -1;
-            }
+           
 
-            public static int FindDisbalance(Node r, out Node item, int MinValue, int MaxValue, out int AddKey)
+            public static int FindDisbalance(Node r, int MinValue, int MaxValue, out int AddKey)
             {
-                if (r.left == null || r.rigth == null)
+                if (r.left == null)
                 {
-                    item = r;
-                    AddKey = (MinValue + MaxValue) / 2;
+                    AddKey = (MinValue + r.inf) / 2;
+                    r.left = new Node(AddKey);
+                    r.NewHeight();
+                    return 0;
+                }
+                if (r.rigth == null)
+                {
+                    AddKey = (MinValue + r.inf) / 2;
+                    r.rigth = new Node(AddKey);
+                    r.NewHeight();
+                    return 0;
                 }
                 else
                 {
                     if (r.BalanceFactor > 1)
                     {
-                        Console.WriteLine(1);
-                        FindDisbalance(r.left, out item, MinValue, r.inf, out AddKey);
+                        FindDisbalance(r.left, MinValue, r.inf, out AddKey);
+                        return 0;
                     }
                     if (r.BalanceFactor < -1)
                     {
-                        FindDisbalance(r.rigth, out item, r.inf, MaxValue, out AddKey);
-                        Console.WriteLine(2);
+                        FindDisbalance(r.rigth, r.inf, MaxValue, out AddKey);
+                        return 0;
                     }
                     else
                     {
-                        if(r.left != null) FindDisbalance(r.left, out item, MinValue, r.inf, out AddKey);
-                        if(r.rigth != null) FindDisbalance(r.rigth, out item, r.inf, MaxValue, out AddKey);
-                        item = r;
-                        AddKey = (MinValue + MaxValue) / 2;
+                        FindDisbalance(r.left, MinValue, r.inf, out AddKey);
+                        AddKey = 0;
+                        return 0;
                     }
                 }
-                Console.WriteLine(item.inf);
-                return 0;
+               
             }
 
            
@@ -357,17 +335,6 @@ namespace heeelp
         {
             Node.add(ref tree, nodeInf);
         }
-
-        public void add(int MaxValue, int MinValue)
-        {
-            Node.add(ref tree, tree.inf, tree.inf);
-        }
-
-        public void addonce(int nodeInf)
-        {
-            Node.addonce(ref tree, nodeInf);
-        }
-
 
         //организация различных способов обхода дерева
         public void Preorder()
@@ -409,17 +376,11 @@ namespace heeelp
             get { return tree.BalanceFactor; }
         }
        
-        public BinaryTree FindDisbalance(out int Key)
+        public void FindDisbalance(out int Key)
         {
-            Node t;
-            Node.FindDisbalance(tree, out t, 0, Int32.MaxValue, out Key);
-            BinaryTree foundDisbalance = new BinaryTree(t);
-            return foundDisbalance;
+
+            Node.FindDisbalance(tree, 0, Int32.MaxValue, out Key);
         }
 
-        public int IsEasyToBalance()
-        {
-           return Node.IsEasyToBalance(tree);
-        }
     }
 }
