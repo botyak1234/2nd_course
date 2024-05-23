@@ -7,6 +7,9 @@ using heeelp;
 using System.Drawing;
 namespace heeelp
 {
+
+
+
     class Program
     { 
         static void Main()
@@ -26,29 +29,38 @@ namespace heeelp
             bool Balanced = help.IsBalanced();
             int addCount = int.Parse(Console.ReadLine());
             int check;
-            for (int i = 0; i < addCount; i++)
+            int c = 0;
+            bool flag = false;
+
+            while (addCount > 0)
             {
+                if (help.IsBalanced())
+                {
+                    flag = true;
+                    break;
+                }
                 int ADD;
-                check = help.IsEasyToBalance();
-                if (check == 0)
-                {
-                    help.add(0, Int32.MaxValue);
-                }
-                if (check == 1)
-                {
-                    BinaryTree ob = help.FindDisbalance(out ADD);
-                    ob.add(ADD);
-                    help.preorder();
-                }
+                help.FindDisbalance(out ADD);
+                addCount--;
+                c++;
             }
             if (help.IsBalanced())
             {
-                Console.WriteLine("Возможно");
-                help.preorder();
+                flag = true;
+            }
+            help.Preorder();
+            Console.WriteLine();
+            if (c == 0)
+            {
+                Console.WriteLine("Дерево уже сбалансировано, пожалуйста, оставьте дерево в покое");
+            }
+            else if (flag)
+            {
+                Console.WriteLine("Дерево было сбалансировано");
             }
             else
             {
-                Console.WriteLine("Невозможно");
+                Console.WriteLine("Дерево не было сбалансировано");
             }
         }
     }
